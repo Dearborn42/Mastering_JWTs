@@ -6,3 +6,12 @@ export default function user_access(request: NextRequest){
         return NextResponse.redirect(new URL("/", request.url));
     }
 }
+
+export const config = {
+    matcher: [
+       "/login",
+       "/signup",
+       "/",
+       "/home"
+    ],
+}

@@ -9,24 +9,17 @@ export default function Signup() {
     // function handleForm(field:string, value:string){
     //     return setForm((prev) => { return { ...prev, [field]: value } });
     // }
-    async function handleSubmit(e): Promise<void>{
-        e.preventDefault();
-        console.log("Submit");
-        // const result = await signup(e);
-        // if(!result.success){
-        //     alert(result.message);
-        // }
+    async function handleSubmit(e: FormData): Promise<void>{
+        const result = await signup(e);
+        if(!result.success){
+            alert(result.message);
+        }
     }
 
     return (
         <form 
             className="fixed top-0 bottom-0 left-0 right-0 flex justify-center flex-col" 
-            // action={async (e) => {
-            //     // "use server";
-            //     // await handleSubmit(e);
-            //     console.log(JSON.stringify(e));
-            // }}
-            onSubmit={(e) => handleSubmit(e)}
+            action={handleSubmit}
         >
         <input 
             type="email" 

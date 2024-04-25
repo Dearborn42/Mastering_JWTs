@@ -28,12 +28,12 @@ app.post("/login", async function(req, res) {
         if (!user) {
             return res.status(400).json({success: false, message: "Wrong email or password"});
         }
-        const samePass = await user.validPassword(password)
+        const samePass = await user.validPassword(req.body.password);
         if(samePass){
-            return res.status(400).json({success: false, message: "Wrong email or password"});
+            const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: "1h" });
+            return res.status(200).json({ success: true, token });
         }
-        const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: "1h" });
-        return res.status(200).json({ success: true, token });
+        return res.status(400).json({success: true, message: "Wrong email or password"});
     } catch (error) {
         return res.status(500).json({success: false, message: error.message});
     }

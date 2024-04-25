@@ -9,11 +9,12 @@ interface serverResponse {
     // Add more properties if necessary
 }
 
-export async function login(formdata: {email:string, password:string}): Promise<serverResponse> {
+export async function login(formdata: FormData): Promise<serverResponse> {
+    const body = {email: formdata.get('email'), password: formdata.get('password')};
     const getUser = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(formdata)
+        body: JSON.stringify(body)
     })
     const response: serverResponse = await getUser.json();
     if (response.success) {
@@ -40,11 +41,11 @@ export async function logout(): Promise<void>{
 }
 
 export async function signup(formdata: FormData): Promise<serverResponse>{
-    console.log(formdata);
+    const body = {email: formdata.get('email'), password: formdata.get('password')};
     const createUser = await fetch("http://localhost:5000/signup", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(formdata)
+        body: JSON.stringify(body)
     })
     const response: serverResponse = await createUser.json();
     if (response.success) {
