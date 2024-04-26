@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { login } from "@/Components/serverFunctions";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function Login() {
   async function handleSubmit(e: FormData): Promise<void>{
@@ -10,28 +12,43 @@ export default function Login() {
         }
     }
   return (
-    <form 
-      className="fixed top-0 bottom-0 left-0 right-0 flex justify-center flex-col" 
+    <Form 
+      className="fixed top-24 bottom-24 left-12 right-12 flex justify-center flex-col border-red-50 rounded border-8 bg-[#222]" 
       action={handleSubmit}
     >
-      <input 
-        type="email" 
-        autoComplete="true" 
-        id="email" 
-        name="email" 
-        placeholder="Enter your email address"
-        required
-      />
-      <input 
-        type="password" 
-        autoComplete="true" 
-        id="password" 
-        name="password"
-        placeholder="Enter your password"
-        required
-      />
-      <Link href="/signup">If you don't have an account click here</Link>
-      <input type="submit" title="Login" />
-    </form>
+      <Form.Group className="mb-3 max-w-lg mx-auto flex flex-col" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control 
+          type="email" 
+          placeholder="Enter email" 
+          autoComplete="true" 
+          id="email" 
+          name="email"
+          required 
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3 max-w-lg mx-auto flex flex-col" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control 
+          type="password" 
+          placeholder="Password" 
+          autoComplete="true" 
+          id="password" 
+          name="password"
+          required 
+        />
+      </Form.Group>
+      <Form.Group className="mb-3 max-w-lg mx-auto flex flex-col" controlId="formBasicCheckbox">
+        <Link href="/signup">
+          <Button variant="primary">
+            If you don't have an account click here
+          </Button>
+        </Link>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 }
